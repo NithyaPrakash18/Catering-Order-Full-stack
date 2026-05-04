@@ -69,10 +69,10 @@ const Dashboard = () => {
           </thead>
           <tbody>
             {recentOrders.map(order => (
-              <tr key={order._id}>
-                <td>{order._id?.slice(-6) || 'N/A'}</td>
-                <td>{order.customerName || 'N/A'}</td>
-                <td>{new Date(order.orderDate).toLocaleDateString()}</td>
+              <tr key={order.id}>
+                <td>#{order.id}</td>
+                <td>{order.customer_name || 'N/A'}</td>
+                <td>{order.event_date ? new Date(order.event_date).toLocaleDateString() : 'N/A'}</td>
                 <td>{order.status}</td>
                 <td>₹{order.total}</td>
               </tr>
