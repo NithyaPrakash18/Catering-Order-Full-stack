@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 
 const Login = ({ onLogin }) => {
-  const [orderId, setOrderId] = useState('');
-  const [status, setStatus] = useState('Received');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (orderId.length !== 6) {
-      setError('Please enter a valid 6-digit Order ID');
+    if (phone.length !== 10) {
+      setError('Please enter a valid 10-digit phone number');
+      return;
+    }
+    if (!password) {
+      setError('Please enter your password');
       return;
     }
     setError('');
-    onLogin(orderId, status);
+    onLogin(phone, password);
   };
 
   return (
@@ -27,36 +31,32 @@ const Login = ({ onLogin }) => {
         <div style={styles.body}>
           <form onSubmit={handleSubmit}>
             <div style={styles.formGroup}>
-              <label style={styles.label}>Order ID</label>
+              <label style={styles.label}>Phone Number</label>
               <input
-                type="text"
-                placeholder="Enter your 6-digit Order ID"
-                value={orderId}
-                onChange={(e) => setOrderId(e.target.value)}
-                maxLength={6}
+                type="tel"
+                placeholder="Enter your 10-digit phone number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                maxLength={10}
                 style={styles.input}
               />
             </div>
 
             <div style={styles.formGroup}>
-              <label style={styles.label}>Order Status</label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                style={styles.select}
-              >
-                <option>Received</option>
-                <option>Confirmed</option>
-                <option>In Preparation</option>
-                <option>Out for Delivery</option>
-                <option>Delivered</option>
-              </select>
+              <label style={styles.label}>Password</label>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={styles.input}
+              />
             </div>
 
             {error && <p style={styles.error}>{error}</p>}
 
             <button type="submit" style={styles.btn}>
-              Track Order
+              Login
             </button>
 
             <p style={styles.help}>
