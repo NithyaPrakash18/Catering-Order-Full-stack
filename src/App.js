@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Orders from './pages/Orders';
@@ -6,9 +6,19 @@ import Menu from './pages/Menu';
 import Customers from './pages/Customers';
 import Admin from './pages/Admin';
 import Halls from './pages/Halls';
+import Login from './pages/Login';
 import './App.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = (orderId, status) => {
+    setIsLoggedIn(true);
+  };
+
+  if (!isLoggedIn) {
+    return <Login onLogin={handleLogin} />;
+  }
   return (
     <Router>
       <div className="app">
